@@ -1,0 +1,111 @@
+body, .card {
+  background-color: #1f1f1f;
+  color: #dddddd;
+  border-color: #dddddd;
+  font-family: 'Jolly Lodger', system-ui;
+  font-size: 16px;
+}
+
+/* .wrapper {
+  margin-top: 150px;
+} */
+
+.row {
+  padding: 0;
+  margin: 0;
+}
+
+.no-border {
+  border: none;
+}
+
+/* .hidden {
+  display: none;
+} */
+
+.btn-primary {
+  color: #000000;
+  background-color: #c28431;
+  border-color: #000000;
+}
+
+.btn-primary:hover {
+  color: #000000;
+  background-color: #ffad40;
+  border-color: #000000;
+}
+
+#gryffindor {
+  color: #d3a625;
+  background-color: #740001;
+  border-color: #d3a625;
+}
+
+#hufflepuff {
+  color: #ecb939;
+  background-color: #372e29;
+  border-color: #ecb939;
+}
+
+#ravenclaw {
+  color: #946b2d;
+  background-color: #222f5b;
+  border-color: #946b2d;
+}
+
+#slytherin {
+  color: #aaaaaa;
+  background-color: #2a623d;
+  border-color: #aaaaaa;
+}
+
+h1 {
+  font-size: 152px;
+}
+
+/* #hero {
+  margin-bottom: 200px;
+} */
+
+#hero p {
+  font-size: 36px;
+}
+
+#hero button {
+  height: 50px;
+  width: 150px;
+  font-size: 26px;
+}
+
+#main h5 {
+  font-size: 42px;
+}
+
+#main h6 {
+  font-size: 26px;
+}
+
+#main form {
+  font-size: 42px;
+}
+
+#main input {
+  height: 50px;
+  width: 400px;
+}
+
+#main form button {
+  width: 100px;
+  font-size: 26px;
+}
+
+#app {
+  height: 600px;
+}
+
+.filter button {
+  height: 50px;
+  width: 250px;
+  margin: 5px;
+  font-size: 26px;
+}

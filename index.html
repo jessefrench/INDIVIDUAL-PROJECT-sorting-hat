@@ -1,52 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sorting Hat</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="main.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Hat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
 
-  <div class="card text-center">
-    <div class="card-header">
+    <div id="hero" class="card no-border text-center">
       <h1 class="card-title">Welcome to Hogwarts!</h1>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Before you can begin your wizarding journey, you'll need to be sorted into a house.</h5>
-      <p class="card-text">Are you prepared for the sorting hat's judgement?</p>
-      <button class="btn btn-primary">I'm ready</button>
-    </div>
-  </div>
-
-  <div class="card align-items-center">
-    <h5 class="card-title">Enter First Year's Name</h5>
-    <form class="row row-cols-lg-auto g-3 align-items-center">
-      <div class="col">
-        <label class="col-form-label">Student:</label>
+      <div class="card-body">
+        <p class="card-text">Before you can begin your wizarding journey, you'll need to be sorted into a house.</p>
+        <p class="card-text">Are you prepared for the sorting hat's judgement?</p>
+        <button class="btn btn-primary">I'm ready</button>
       </div>
-      <div class="col">
-        <input type="text" class="form-control" id="name" placeholder="Name">
-      </div>
-      <div class="col">
-        <button type="submit" class="btn btn-primary">Sort</button>
-      </div>
-    </form>
-
-    <div class="card-body text-center">
-      <h5 class="card-title">Filter Students</h5>
-      <button type="button" class="btn btn-primary" id="all">All</button>
-      <button type="button" class="btn btn-primary" id="gryffindor">Gryffindor</button>
-      <button type="button" class="btn btn-primary" id="hufflepuff">Hufflepuff</button>
-      <button type="button" class="btn btn-primary" id="ravenclaw">Ravenclaw</button>
-      <button type="button" class="btn btn-primary" id="slytherin">Slytherin</button>
     </div>
-  </div>
 
-  <div id="app"></div>
+    <div id="app" class="row text-center">
+      <div id="input-form"></div>
+      <div id="filter-buttons"></div>
+      <div id="first-years" class="col"></div>
+      <div id="voldemorts-army" class="col"></div>
+    </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="main.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+  </body>
 </html>
