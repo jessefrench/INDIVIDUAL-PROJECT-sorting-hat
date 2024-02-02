@@ -1,3 +1,5 @@
+/////////////////////////// DATA ///////////////////////////
+
 const houses = [
   {
     id: 1,
@@ -24,9 +26,8 @@ const houses = [
 const students = [];
 const voldemortsArmy = [];
 
-// ******************** //
-// ******* READ ******* //
-// ******************** //
+/////////////////////////// DATA ///////////////////////////
+/////////////////////////// READ ///////////////////////////
 
 // render to dom utility function
 const renderToDom = (divId, htmlToRender) => {
@@ -36,8 +37,8 @@ const renderToDom = (divId, htmlToRender) => {
 
 // get the input form on the dom
 const inputFormOnDom = () => {
-  let domString = `
-  <div class="card no-border align-items-center">
+  let domString = 
+  `<div class="card no-border align-items-center">
     <h5 class="card-title">Enter First Year's Name</h5>
     <form class="row row-cols-lg-auto g-3 align-items-center">
       <div class="col">
@@ -47,19 +48,19 @@ const inputFormOnDom = () => {
         <input type="text" class="form-control" id="name" placeholder="Name">
       </div>
       <div class="col">
-        <button type="submit" class="btn btn-primary">Sort</button>
+        <button onclick="filterButtonsOnDom()" type="submit" class="btn btn-primary">Sort</button>
       </div>
     </form>
   </div>`;
   renderToDom("#input-form", domString);
 }
 
-inputFormOnDom();
+// inputFormOnDom();
 
 // get the filter buttons on the dom
 const filterButtonsOnDom = () => {
-  let domString = `
-  <div class="filter card-body text-center">
+  let domString =
+  `<div class="filter card-body text-center">
     <h6 class="card-title">Filter Students</h6>
     <button type="button" class="btn btn-primary" id="all">All</button>
     <button type="button" class="btn btn-primary" id="gryffindor">Gryffindor</button>
@@ -70,16 +71,16 @@ const filterButtonsOnDom = () => {
   renderToDom("#filter-buttons", domString);
 }
 
-filterButtonsOnDom();
+// filterButtonsOnDom();
 
 // get the first years cards on the dom
 const firstYearsOnDom = (students) => {
-  let domString = `
-  <div class="col first-years">
+  let domString =
+  `<div class="col first-years">
     <h5 class="card-title">First Years</h5>`
     students.forEach(student => {
-      domString += `
-      <div class="card mb-3 first-years" style="max-width: 325px;">
+      domString +=
+      `<div class="card mb-3 first-years" style="max-width: 325px;">
         <div class="row g-0">
           <div class="col-md-4">
             <img src="${student.crest}" class="img-fluid rounded-start" alt="House Crest">
@@ -94,21 +95,21 @@ const firstYearsOnDom = (students) => {
         </div>
       </div>`;
     });
-  domString += `  
-  </div>`;
+  domString +=
+  `</div>`;
   renderToDom("#first-years", domString);
 }
 
-firstYearsOnDom(students);
+// firstYearsOnDom(students);
 
 // get the voldemorts army cards on the dom
 const voldemortsArmyOnDom = (voldemortsArmy) => {
-  let domString = `
-  <div class="col voldemorts-army">
+  let domString =
+  `<div class="col voldemorts-army">
     <h5 class="card-title">Voldemort's Army</h5>`
     voldemortsArmy.forEach(member => {
-      domString += `
-      <div class="card mb-3 voldemorts-army" style="max-width: 325px;">
+      domString +=
+      `<div class="card mb-3 voldemorts-army" style="max-width: 325px;">
         <div class="row g-0">
           <div class="col-md-4">
             <img src="images/dark-mark.jpg" class="img-fluid rounded-start" alt="Dark Mark">
@@ -121,12 +122,12 @@ const voldemortsArmyOnDom = (voldemortsArmy) => {
         </div>
       </div>`;
     });
-  domString += `
-  </div>`;
+  domString +=
+  `</div>`;
   renderToDom("#voldemorts-army", domString);
 }
 
-voldemortsArmyOnDom(voldemortsArmy);
+// voldemortsArmyOnDom(voldemortsArmy);
 
 // target house buttons on the dom
 const allBtn = document.querySelector("#all");
@@ -136,37 +137,47 @@ const ravenclawBtn = document.querySelector("#ravenclaw");
 const slytherinBtn = document.querySelector("#slytherin");
 
 // add click events to filter students by house
-allBtn.addEventListener("click", (e) => {
-  firstYearsOnDom(students);
-});
+if (allBtn) {
+  allBtn.addEventListener("click", () => {
+    firstYearsOnDom(students);
+  });
+}
 
-gryffindorBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes("gryffindor")) {
-    const gryffindorStudents = students.filter((student) => student.house === "Gryffindor");
-    firstYearsOnDom(gryffindorStudents);
-  }
-});
+if (gryffindorBtn) {
+  gryffindorBtn.addEventListener("click", (e) => {
+    if (e.target.id.includes("gryffindor")) {
+      const gryffindorStudents = students.filter((student) => student.house === "Gryffindor");
+      firstYearsOnDom(gryffindorStudents);
+    }
+  });
+}
 
-hufflepuffBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes("hufflepuff")) {
-    const hufflepuffStudents = students.filter((student) => student.house === "Hufflepuff");
-    firstYearsOnDom(hufflepuffStudents);
-  }
-});
+if (hufflepuffBtn) {
+  hufflepuffBtn.addEventListener("click", (e) => {
+    if (e.target.id.includes("hufflepuff")) {
+      const hufflepuffStudents = students.filter((student) => student.house === "Hufflepuff");
+      firstYearsOnDom(hufflepuffStudents);
+    }
+  });
+}
 
-ravenclawBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes("ravenclaw")) {
-    const ravenclawStudents = students.filter((student) => student.house === "Ravenclaw");
-    firstYearsOnDom(ravenclawStudents);
-  }
-});
+if (ravenclawBtn) {
+  ravenclawBtn.addEventListener("click", (e) => {
+    if (e.target.id.includes("ravenclaw")) {
+      const ravenclawStudents = students.filter((student) => student.house === "Ravenclaw");
+      firstYearsOnDom(ravenclawStudents);
+    }
+  });
+}
 
-slytherinBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes("slytherin")) {
-    const slytherinStudents = students.filter((student) => student.house === "Slytherin");
-    firstYearsOnDom(slytherinStudents);
-  }
-});
+if (slytherinBtn) {
+  slytherinBtn.addEventListener("click", (e) => {
+    if (e.target.id.includes("slytherin")) {
+      const slytherinStudents = students.filter((student) => student.house === "Slytherin");
+      firstYearsOnDom(slytherinStudents);
+    }
+  });
+}
 
 // function to hide elements
 // const toggleHidden = () => {
@@ -188,9 +199,8 @@ slytherinBtn.addEventListener("click", (e) => {
 //   });
 // }
 
-// ******************** //
-// ****** CREATE ****** //
-// ******************** //
+/////////////////////////// READ ///////////////////////////
+////////////////////////// CREATE //////////////////////////
 
 // target the form on the dom
 const form = document.querySelector("form");
@@ -226,11 +236,12 @@ const addNewStudent = (e) => {
 }
 
 // add an event listener for the form submit and pass it the function
-form.addEventListener("submit", addNewStudent);
+if (form) {
+  form.addEventListener("submit", addNewStudent);
+}
 
-// ******************** //
-// ****** DELETE ****** //
-// ******************** //
+////////////////////////// CREATE //////////////////////////
+////////////////////////// DELETE //////////////////////////
 
 // target the first years div
 const firstYears = document.querySelector("#first-years");
@@ -258,6 +269,8 @@ firstYears.addEventListener("click", (e) => {
     voldemortsArmyOnDom(voldemortsArmy);
   }
 });
+
+////////////////////////// DELETE //////////////////////////
 
 // const startApp = () => {
 //   firstYearsOnDom(students);
