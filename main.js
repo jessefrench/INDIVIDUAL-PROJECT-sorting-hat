@@ -40,7 +40,7 @@ const inputFormOnDom = () => {
   let domString = 
   `<div class="card no-border align-items-center">
     <h5 class="card-title">Enter First Year's Name</h5>
-    <form id="student-form" class="row row-cols-lg-auto g-3 align-items-center">
+    <form class="row row-cols-lg-auto g-3 align-items-center">
       <div class="col">
         <label class="col-form-label">Student:</label>
       </div>
@@ -147,7 +147,7 @@ filterButtons.addEventListener("click", (e) => {
 ////////////////////////// CREATE //////////////////////////
 
 // target the form on the dom
-const studentForm = document.querySelector("student-form");
+const studentForm = document.querySelector("#input-form");
 
 // create a function that grabs all the values from the form, pushes the new object to the array, then repaints the dom with the new student
 const addNewStudent = (e) => {
@@ -165,6 +165,7 @@ const addNewStudent = (e) => {
 
   // store random house function as a variable
   const randomHouse = getRandomHouse();
+  const form = document.querySelector("form");
 
   // create new student object
   const newStudent = {
@@ -180,7 +181,7 @@ const addNewStudent = (e) => {
   firstYearsOnDom(students);
 
   // reset form for next student
-  studentForm.reset();
+  form.reset();
 }
 
 // add an event listener for the form submit and pass it the function
