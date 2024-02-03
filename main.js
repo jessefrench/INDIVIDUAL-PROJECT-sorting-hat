@@ -1,49 +1,160 @@
+/////////////////////////// DATA ///////////////////////////
+
 const houses = [
   {
     id: 1,
     name: "Gryffindor",
-    colors: "Red & Gold",
     crest: "images/gryffindor-crest.png"
   },
   {
     id: 2,
     name: "Hufflepuff",
-    colors: "Yellow & Black",
     crest: "images/hufflepuff-crest.png"
   },
   {
     id: 3,
     name: "Ravenclaw",
-    colors: "Blue & Bronze",
     crest: "images/ravenclaw-crest.png"
   },
   {
     id: 4,
     name: "Slytherin",
-    colors: "Green & Silver",
     crest: "images/slytherin-crest.png"
   }
 ]
 
-// ******************** //
-// ****** CREATE ****** //
-// ******************** //
-
-// target the form on the DOM
-const form = document.querySelector("form");
-
-// create empty array to store new students
 const students = [];
+const voldemortsArmy = [];
 
-// create empty array to store expelled students
-const voldermortsArmy = [];
+/////////////////////////// DATA ///////////////////////////
+/////////////////////////// READ ///////////////////////////
 
-// create a function that grabs all the values from the form, pushes the new object to the array, then repaints the DOM with the new student
+// render to dom utility function
+const renderToDom = (divId, htmlToRender) => {
+  const selectedDiv = document.querySelector(divId);
+  selectedDiv.innerHTML = htmlToRender;
+}
+
+// get the input form on the dom
+const inputFormOnDom = () => {
+  let domString = 
+  `<div class="card no-border align-items-center">
+    <h5 class="card-title">Enter First Year's Name</h5>
+    <form class="row row-cols-lg-auto g-3 align-items-center">
+      <div class="col">
+        <label class="col-form-label">Student:</label>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" id="name" placeholder="Name">
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-primary">Sort</button>
+      </div>
+    </form>
+  </div>`;
+  renderToDom("#input-form", domString);
+}
+
+// get the filter buttons on the dom
+const filterButtonsOnDom = () => {
+  let domString =
+  `<div class="filter card-body text-center">
+    <h6 class="card-title">Filter Students</h6>
+    <button type="button" class="btn btn-primary" id="all">All</button>
+    <button type="button" class="btn btn-primary" id="gryffindor">Gryffindor</button>
+    <button type="button" class="btn btn-primary" id="hufflepuff">Hufflepuff</button>
+    <button type="button" class="btn btn-primary" id="ravenclaw">Ravenclaw</button>
+    <button type="button" class="btn btn-primary" id="slytherin">Slytherin</button>
+  </div>`;
+  renderToDom("#filter-buttons", domString);
+}
+
+// get the first years cards on the dom
+const firstYearsOnDom = (students) => {
+  let domString =
+  `<h5 class="card-title">First Years</h5>`
+    students.forEach(student => {
+      domString +=
+      `<div class="card mb-3" style="max-width: 325px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="${student.crest}" class="img-fluid rounded-start" alt="House Crest">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">${student.name}</h5>
+              <p class="card-text">${student.house}</p>
+              <button type="button" class="btn btn-danger" id="expel--${student.id}">EXPEL</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    });
+  renderToDom("#first-years", domString);
+}
+
+// get the voldemorts army cards on the dom
+const voldemortsArmyOnDom = (voldemortsArmy) => {
+  let domString =
+  `<h5 class="card-title">Voldemort's Army</h5>`
+  voldemortsArmy.forEach(member => {
+    domString +=
+    `<div class="card mb-3" style="max-width: 325px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="images/dark-mark.jpg" class="img-fluid rounded-start" alt="Dark Mark">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <p class="card-text">Sadly, <b>${member.name}</b> has joined Voldemort's army!</p>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  });
+  renderToDom("#voldemorts-army", domString);
+}
+
+// add click event to render input form
+const startButton = document.querySelector("#start-button");
+
+startButton.addEventListener("click", () => {
+  inputFormOnDom();
+})
+
+// add click events to filter students by house
+const filterButtons = document.querySelector("#filter-buttons");
+
+filterButtons.addEventListener("click", (e) => {
+  if (e.target.id.includes("gryffindor")) {
+    const gryffindorStudents = students.filter(student => student.house === "Gryffindor");
+    firstYearsOnDom(gryffindorStudents);
+  } else if (e.target.id.includes("hufflepuff")) {
+    const hufflepuffStudents = students.filter(student => student.house === "Hufflepuff");
+    firstYearsOnDom(hufflepuffStudents);
+  } else if (e.target.id.includes("ravenclaw")) {
+    const ravenclawStudents = students.filter(student => student.house === "Ravenclaw");
+    firstYearsOnDom(ravenclawStudents);
+  } else if (e.target.id.includes("slytherin")) {
+    const slytherinStudents = students.filter(student => student.house === "Slytherin");
+    firstYearsOnDom(slytherinStudents);
+  } else {
+    firstYearsOnDom(students);
+  }
+})
+
+/////////////////////////// READ ///////////////////////////
+////////////////////////// CREATE //////////////////////////
+
+// target the form on the dom
+const studentForm = document.querySelector("#input-form");
+
+// create a function that grabs all the values from the form, pushes the new object to the array, then repaints the dom with the new student
 const addNewStudent = (e) => {
-  e.preventDefault(); // EVERY TIME YOU CREATE A FORM
+  e.preventDefault(); // every time you create a form
 
   // create a function to generate a random house
-  function getRandomHouse() {
+  const getRandomHouse = () => {
     const randomIndex = Math.floor(Math.random() * houses.length);
     const randomHouse = houses[randomIndex];
     return {
@@ -54,8 +165,9 @@ const addNewStudent = (e) => {
 
   // store random house function as a variable
   const randomHouse = getRandomHouse();
+  const form = document.querySelector("form");
 
-  // new student object
+  // create new student object
   const newStudent = {
     id: students.length + 1,
     name: document.querySelector("#name").value,
@@ -63,107 +175,26 @@ const addNewStudent = (e) => {
     crest: randomHouse.crest
   }
 
+  // push new student to array and render
   students.push(newStudent);
-  cardsOnDom(students);
+  filterButtonsOnDom();
+  firstYearsOnDom(students);
+
+  // reset form for next student
   form.reset();
 }
 
 // add an event listener for the form submit and pass it the function
-form.addEventListener("submit", addNewStudent);
+studentForm.addEventListener("submit", addNewStudent);
 
-// ******************** //
-// ******* READ ******* //
-// ******************** //
+////////////////////////// CREATE //////////////////////////
+////////////////////////// DELETE //////////////////////////
 
-// render to DOM utility function
-const renderToDom = (divId, htmlToRender) => {
-  const selectedDiv = document.querySelector(divId);
-  selectedDiv.innerHTML = htmlToRender;
-}
-
-// get the cards on the DOM
-const cardsOnDom = (students) => {
-  let domString = "";
-  domString += `
-    <div class="row text-center">
-      <div class="col" id="first-years">
-        <h5>First Years</h5>
-      </div>
-      <div class="col" id="voldermorts-army">
-        <h5>Voldermort's Army</h5>
-      </div>
-    </div>
-  `;
-  for (const student of students) {
-    domString += `
-      <div class="card mb-3" style="max-width: 325px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="${student.crest}" class="img-fluid rounded-start" alt="">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">${student.name}</h5>
-              <p class="card-text">${student.house}</p>
-              <button type="button" class="btn btn-danger" id="expel--${student.id}">EXPEL</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-  renderToDom("#app", domString);
-}
-
-// target house buttons on the DOM
-const allBtn = document.querySelector("#all");
-const gryffindorBtn = document.querySelector("#gryffindor");
-const hufflepuffBtn = document.querySelector("#hufflepuff");
-const ravenclawBtn = document.querySelector("#ravenclaw");
-const slytherinBtn = document.querySelector("#slytherin");
-
-// add click events to filter students by house
-allBtn.addEventListener("click", (e) => {
-  cardsOnDom(students);
-});
-
-gryffindorBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes("gryffindor")) {
-    const gryffindorStudents = students.filter((student) => student.house === "Gryffindor");
-    cardsOnDom(gryffindorStudents);
-  }
-});
-
-hufflepuffBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes("hufflepuff")) {
-    const hufflepuffStudents = students.filter((student) => student.house === "Hufflepuff");
-    cardsOnDom(hufflepuffStudents);
-  }
-});
-
-ravenclawBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes("ravenclaw")) {
-    const ravenclawStudents = students.filter((student) => student.house === "Ravenclaw");
-    cardsOnDom(ravenclawStudents);
-  }
-});
-
-slytherinBtn.addEventListener("click", (e) => {
-  if (e.target.id.includes("slytherin")) {
-    const slytherinStudents = students.filter((student) => student.house === "Slytherin");
-    cardsOnDom(slytherinStudents);
-  }
-});
-
-// ******************** //
-// ****** DELETE ****** //
-// ******************** //
-
-// target the app div
-const app = document.querySelector("#app");
+// target the first years div
+const firstYears = document.querySelector("#first-years");
 
 // add an event listener to capture clicks
-app.addEventListener("click", (e) => {
+firstYears.addEventListener("click", (e) => {
 
   // check e.target.id includes "expel"
   if (e.target.id.includes("expel")) {
@@ -174,20 +205,48 @@ app.addEventListener("click", (e) => {
     // .findIndex() returns index of first element that meets condition
     const index = students.findIndex(student => student.id === Number(id));
 
-    // .splice() modifies the original array
-    const expelledStudent = students.splice(index, 1)
+    // remove expelled students from students array
+    const expelledStudent = students.splice(index, 1)[0];
 
-    // place expelled students in voldermortsArmy array
-    voldermortsArmy.push(expelledStudent);
-
-    // repaint the DOM with the updated array
-    cardsOnDom(students);
+    // push expelled students to voldemorts army array
+    voldemortsArmy.push(expelledStudent);
   }
+
+  // repaint the dom with the updated arrays
+  firstYearsOnDom(students);
+  voldemortsArmyOnDom(voldemortsArmy);
 });
 
-// render dynamically generated HTML
-const startApp = () => {
-  cardsOnDom(students);
-}
+////////////////////////// DELETE //////////////////////////
+////////////////////////// UNUSED //////////////////////////
 
-startApp();
+// function to hide elements
+// const toggleHidden = () => {
+//   const hiddenElements = document.querySelector(".hidden");
+//   if (hiddenElements.style.display === "flex") {
+//     hiddenElements.style.display = "none";
+//   } else {
+//     hiddenElements.style.display = "flex";
+//   }
+// }
+
+// function to scroll to section of page on click
+// const scrollFunction = () => {
+//   let e = document.querySelector("#main");
+//   e.scrollIntoView({
+//     block: 'start',
+//     behavior: 'smooth',
+//     inline: 'start'
+//   });
+// }
+
+// const startApp = () => {
+//   firstYearsOnDom(students);
+//   voldemortsArmyOnDom(voldemortsArmy);
+//   inputFormOnDom();
+//   filterButtonsOnDom();
+// }
+
+// startApp();
+
+////////////////////////// UNUSED //////////////////////////
